@@ -5,7 +5,7 @@ import Card from "@/components/Card";
 const HomePage = () => {
   return (
     <>
-      <Hero title="home" />
+      <Hero title="home" heading="Wilkommen bei Midang" />
       <Box mx="auto" w={{ base: "90%", md: "75%" }}>
         <Text fontSize="2xl" lineHeight="10">
           Ugh VHS gentrify yuccie pickled. Chambray chillwave lumbersexual
