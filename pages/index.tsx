@@ -1,8 +1,13 @@
 import { Box, Grid, Heading, Text } from "@chakra-ui/react";
 import Hero from "@/components/Hero";
 import Card from "@/components/Card";
+import axios from "axios";
+import { IData } from "./menu";
+import MenuItem from "@/components/MenuItem";
 
-const HomePage = () => {
+export default function HomePage({ data }: { data: IData[] }) {
+  // console.log(data);
+
   return (
     <>
       <Hero title="home" heading="Wilkommen bei Midang" />
@@ -31,9 +36,38 @@ const HomePage = () => {
           <Card icon="fork" text="Frische Zutaten täglich" />
           <Card icon="calendar" text="jeden Tag geöffnet" />
         </Grid>
+        <Heading as="h2" fontSize="3xl" mt={4}>
+          Unsere Highlights
+        </Heading>
+        <Grid
+          templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
+          gap={2}
+          my={8}
+        >
+          {data.map((item) => {
+            return (
+              <MenuItem
+                featured
+                key={item.id}
+                name={item.name}
+                slug={item.slug}
+                image={item.image}
+                price={item.price}
+                zutat={item.zutat}
+              ></MenuItem>
+            );
+          })}
+        </Grid>
       </Box>
     </>
   );
-};
+}
 
-export default HomePage;
+export async function getStaticProps() {
+  const { data } = await axios.get(
+    `${process.env.API_ENDPOINT}/items?featured=true`
+  );
+  return {
+    props: { data },
+  };
+}

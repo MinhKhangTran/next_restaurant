@@ -8,7 +8,7 @@ export interface IZutat {
   zutat: string;
 }
 
-interface IData {
+export interface IData {
   id: number;
   name: string;
   slug: string;
@@ -18,7 +18,7 @@ interface IData {
 }
 
 export default function MenuPage({ data }: { data: IData[] }) {
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
