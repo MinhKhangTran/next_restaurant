@@ -5,26 +5,45 @@ import axios from "axios";
 import { IData } from "./menu";
 import MenuItem from "@/components/MenuItem";
 
-export default function HomePage({ data }: { data: IData[] }) {
+interface ISingleType {
+  id: number;
+  description?: string;
+  title?: string;
+}
+interface ICard {
+  id: number;
+  text: string;
+  icon: any;
+}
+
+export default function HomePage({
+  data,
+  about,
+  index_title_1,
+  index_title_2,
+  cards,
+}: {
+  data: IData[];
+  about: ISingleType;
+  index_title_1: ISingleType;
+  index_title_2: ISingleType;
+  cards: ICard[];
+}) {
   // console.log(data);
+  // console.log(about);
+  // console.log(index_title_1);
+  // console.log(index_title_2);
+  console.log(cards);
 
   return (
     <>
       <Hero title="home" heading="Wilkommen bei Midang" />
       <Box mx="auto" w={{ base: "90%", md: "75%" }}>
         <Text fontSize="2xl" lineHeight="10">
-          Ugh VHS gentrify yuccie pickled. Chambray chillwave lumbersexual
-          pop-up, palo santo tattooed iceland lomo four dollar toast. VHS
-          everyday carry art party, blue bottle 90's tattooed marfa PBR&B lomo
-          scenester biodiesel umami photo booth. Lumbersexual jean shorts
-          humblebrag heirloom lyft, cloud bread fixie butcher. Literally
-          typewriter bespoke ethical helvetica everyday carry 8-bit 90's
-          single-origin coffee hot chicken green juice fanny pack. Wolf yuccie
-          kombucha green juice church-key poke 3 wolf moon wayfarers squid
-          asymmetrical food truck farm-to-table.
+          {about.description}
         </Text>
         <Heading as="h2" fontSize="3xl" mt={4}>
-          Was uns auszeichnet!
+          {index_title_1.title}
         </Heading>
         <Grid
           my={8}
@@ -32,12 +51,15 @@ export default function HomePage({ data }: { data: IData[] }) {
           placeItems="center"
           gap={8}
         >
-          <Card icon="happy" text="Zufriedene Kunden und Mitarbeiter" />
-          <Card icon="fork" text="Frische Zutaten täglich" />
-          <Card icon="calendar" text="jeden Tag geöffnet" />
+          {cards.map((card) => {
+            return <Card icon={card.icon.url} text={card.text}></Card>;
+          })}
+          {/* <Card icon="1" text="Zufriedene Kunden und Mitarbeiter" />
+          <Card icon="2" text="Frische Zutaten täglich" />
+          <Card icon="3" text="jeden Tag geöffnet" /> */}
         </Grid>
         <Heading as="h2" fontSize="3xl" mt={4}>
-          Unsere Highlights
+          {index_title_2.title}
         </Heading>
         <Grid
           templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
@@ -67,7 +89,19 @@ export async function getStaticProps() {
   const { data } = await axios.get(
     `${process.env.API_ENDPOINT}/items?featured=true`
   );
+  //about
+  const { data: about } = await axios.get(`${process.env.API_ENDPOINT}/about`);
+  //title 1
+  const { data: index_title_1 } = await axios.get(
+    `${process.env.API_ENDPOINT}/index-title-1`
+  );
+  //title 2
+  const { data: index_title_2 } = await axios.get(
+    `${process.env.API_ENDPOINT}/index-title-2`
+  );
+  //cards
+  const { data: cards } = await axios.get(`${process.env.API_ENDPOINT}/cards`);
   return {
-    props: { data },
+    props: { data, about, index_title_1, index_title_2, cards },
   };
 }
