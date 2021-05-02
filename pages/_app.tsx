@@ -3,6 +3,7 @@ import Router from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "@/styles/theme";
 import Layout from "@/components/Layout";
+import { AuthProvider } from "@/context/authContext";
 //Nprogress
 import NProgress from "nprogress";
 import "@/styles/nprogress.css";
@@ -14,9 +15,11 @@ Router.events.on("routeChangeError", () => NProgress.done());
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider resetCSS theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
     </ChakraProvider>
   );
 }
