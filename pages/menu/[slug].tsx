@@ -12,6 +12,7 @@ import { IData } from "pages/menu";
 import Image from "next/image";
 import formatMoney from "@/utils/formatMoney";
 import Link from "next/link";
+import { GetStaticPaths } from "next";
 
 interface IDataWithDesc extends IData {
   description: string;
@@ -54,10 +55,37 @@ export default function SingleMenuPage({ item }: { item: IDataWithDesc }) {
   );
 }
 
-export async function getServerSideProps({
-  query: { slug },
+// export async function getServerSideProps({
+//   query: { slug },
+// }: {
+//   query: { slug: string };
+// }) {
+//   const { data } = await axios.get(
+//     `${process.env.API_ENDPOINT}/items?slug=${slug}`
+//   );
+//   return {
+//     props: {
+//       item: data[0],
+//     },
+//   };
+// }
+export async function getStaticPaths() {
+  const { data } = await axios.get(`${process.env.API_ENDPOINT}/items`);
+
+  const paths = data.map((item: any) => ({
+    params: { slug: item.slug },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({
+  params: { slug },
 }: {
-  query: { slug: string };
+  params: { slug: string };
 }) {
   const { data } = await axios.get(
     `${process.env.API_ENDPOINT}/items?slug=${slug}`
@@ -66,5 +94,6 @@ export async function getServerSideProps({
     props: {
       item: data[0],
     },
+    revalidate: 1,
   };
 }

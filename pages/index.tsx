@@ -33,7 +33,7 @@ export default function HomePage({
   // console.log(about);
   // console.log(index_title_1);
   // console.log(index_title_2);
-  console.log(cards);
+  // console.log(cards);
 
   return (
     <>

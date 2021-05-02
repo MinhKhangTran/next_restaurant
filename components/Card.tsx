@@ -4,7 +4,7 @@ import { GiKnifeFork } from "react-icons/gi";
 import { FaCalendarCheck, FaFrown } from "react-icons/fa";
 import Image from "next/image";
 const Card = ({ icon, text }: { icon: string; text: string }) => {
-  console.log(icon);
+  // console.log(icon);
 
   return (
     <Flex
