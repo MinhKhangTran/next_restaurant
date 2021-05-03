@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import MenuItem from "@/components/MenuItem";
-import { Box, Grid } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import axios from "axios";
 import { IHero } from "pages";
 

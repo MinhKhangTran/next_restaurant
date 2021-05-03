@@ -1,7 +1,7 @@
-import { Box, Heading } from "@chakra-ui/react";
-import { css } from "@emotion/react";
+import { Heading } from "@chakra-ui/react";
+
 import styled from "@emotion/styled";
-import Image from "next/image";
+
 const Hero = ({
   title,
   heading,

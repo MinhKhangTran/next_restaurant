@@ -1,4 +1,4 @@
-import { Box, Heading, Spacer, Flex } from "@chakra-ui/react";
+import { Heading, Spacer, Flex } from "@chakra-ui/react";
 import Head from "next/head";
 import React from "react";
 import DarkModeSwitch from "./DarkModeSwitch";
@@ -12,9 +12,9 @@ export default function Layout({
   keywords = "korean, food, restaurant, tasty",
 }: {
   children: React.ReactNode;
-  title: string;
-  description: string;
-  keywords: string;
+  title?: string;
+  description?: string;
+  keywords?: string;
 }) {
   return (
     <>

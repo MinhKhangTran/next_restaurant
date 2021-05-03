@@ -1,7 +1,7 @@
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { ImHappy } from "react-icons/im";
-import { GiKnifeFork } from "react-icons/gi";
-import { FaCalendarCheck, FaFrown } from "react-icons/fa";
+import { Flex, Text } from "@chakra-ui/react";
+// import { ImHappy } from "react-icons/im";
+// import { GiKnifeFork } from "react-icons/gi";
+// import { FaCalendarCheck, FaFrown } from "react-icons/fa";
 import Image from "next/image";
 const Card = ({ icon, text }: { icon: string; text: string }) => {
   // console.log(icon);
