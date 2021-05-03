@@ -4,7 +4,9 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Heading,
   Input,
+  Text,
   Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -53,6 +55,16 @@ const ContactPage = () => {
             Abschicken
           </Button>
         </form>
+      </Box>
+      <Box w={{ base: "90%", md: "75%" }} mx="auto" my={8}>
+        <Heading color={textColor}>Besuche uns</Heading>
+        <Text fontSize="xl" fontWeight="bold">
+          Midang
+        </Text>
+        <Text fontSize="xl">Musterstraße 1</Text>
+        <Text fontSize="xl">12345 Musterstadt</Text>
+        <Text fontSize="xl">1234567 📞</Text>
+        <Text fontSize="xl">midang@exmaple.com 📨</Text>
       </Box>
     </>
   );

@@ -12,7 +12,7 @@ import { IData } from "pages/menu";
 import Image from "next/image";
 import formatMoney from "@/utils/formatMoney";
 import Link from "next/link";
-import { GetStaticPaths } from "next";
+import SkeletonComp from "@/components/SkeletonComp";
 
 interface IDataWithDesc extends IData {
   description: string;
@@ -20,7 +20,7 @@ interface IDataWithDesc extends IData {
 
 export default function SingleMenuPage({ item }: { item: IDataWithDesc }) {
   //   console.log(item);
-
+  if (!item) return <SkeletonComp />;
   return (
     <Box w={{ base: "90%", md: "75%" }} mx="auto">
       <Button colorScheme="cyan" my={4}>
@@ -78,6 +78,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
+    //if there is no page yet, first make a fallback of this page
     fallback: true,
   };
 }
@@ -90,10 +91,20 @@ export async function getStaticProps({
   const { data } = await axios.get(
     `${process.env.API_ENDPOINT}/items?slug=${slug}`
   );
+  //redirect if there is no page
+  if (!data.length) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {
       item: data[0],
     },
+    //incremental static regeneration at least 1 every 1 s
     revalidate: 1,
   };
 }

@@ -52,7 +52,9 @@ export default function HomePage({
           gap={8}
         >
           {cards.map((card) => {
-            return <Card icon={card.icon.url} text={card.text}></Card>;
+            return (
+              <Card key={card.id} icon={card.icon.url} text={card.text}></Card>
+            );
           })}
           {/* <Card icon="1" text="Zufriedene Kunden und Mitarbeiter" />
           <Card icon="2" text="Frische Zutaten täglich" />
@@ -103,5 +105,6 @@ export async function getStaticProps() {
   const { data: cards } = await axios.get(`${process.env.API_ENDPOINT}/cards`);
   return {
     props: { data, about, index_title_1, index_title_2, cards },
+    revalidate: 1,
   };
 }

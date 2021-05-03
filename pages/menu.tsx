@@ -52,5 +52,6 @@ export async function getStaticProps() {
   // console.log(data);
   return {
     props: { data },
+    revalidate: 1,
   };
 }

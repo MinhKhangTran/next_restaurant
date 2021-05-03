@@ -50,13 +50,13 @@ const MenuItem = ({
         borderRadius="xl"
         p={4}
       >
+        <Heading>
+          <Text casing="capitalize">{name}</Text>
+        </Heading>
         <Flex>
           <Image src={image.formats.thumbnail.url} width="175" height="150" />
 
           <Box ml={4}>
-            <Heading>
-              <Text casing="capitalize">{name}</Text>
-            </Heading>
             {zutat.map((z) => {
               return (
                 <Text casing="capitalize" key={z.id}>
