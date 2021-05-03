@@ -10,14 +10,31 @@ import {
   Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { IHero } from "pages";
 
-const ContactPage = () => {
+interface IContact {
+  heading: string;
+  title: string;
+  adresse: string;
+  plz: string;
+  telefon: string;
+  email: string;
+}
+
+const ContactPage = ({
+  heroes,
+  contact,
+}: {
+  heroes: IHero[];
+  contact: IContact;
+}) => {
   const bgColor = useColorModeValue("cyan.50", "cyan.800");
   const borderColor = useColorModeValue("cyan.400", "cyan.200");
   const textColor = useColorModeValue("cyan.600", "cyan.100");
   return (
     <>
-      <Hero title="contact" heading="Schreib uns" />
+      <Hero title="contact" heading={heroes[0].title} />
       <Box
         border="2px"
         p={4}
@@ -57,17 +74,32 @@ const ContactPage = () => {
         </form>
       </Box>
       <Box w={{ base: "90%", md: "75%" }} mx="auto" my={8}>
-        <Heading color={textColor}>Besuche uns</Heading>
+        <Heading color={textColor}>{contact.heading}</Heading>
         <Text fontSize="xl" fontWeight="bold">
-          Midang
+          {contact.title}
         </Text>
-        <Text fontSize="xl">Musterstraße 1</Text>
-        <Text fontSize="xl">12345 Musterstadt</Text>
-        <Text fontSize="xl">1234567 📞</Text>
-        <Text fontSize="xl">midang@exmaple.com 📨</Text>
+        <Text fontSize="xl">{contact.adresse}</Text>
+        <Text fontSize="xl">{contact.plz}</Text>
+        <Text fontSize="xl">{contact.telefon}</Text>
+        <Text fontSize="xl">{contact.email}</Text>
       </Box>
     </>
   );
 };
+
+export async function getStaticProps() {
+  // heroes;
+  const { data: heroes } = await axios.get(
+    `${process.env.API_ENDPOINT}/heroes?id=3`
+  );
+  //contact
+  const { data: contact } = await axios.get(
+    `${process.env.API_ENDPOINT}/contact`
+  );
+  return {
+    props: { heroes, contact },
+    revalidate: 1,
+  };
+}
 
 export default ContactPage;

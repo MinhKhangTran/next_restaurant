@@ -1,7 +1,16 @@
 import { Box, Heading } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
-const Hero = ({ title, heading }: { title: string; heading: string }) => {
+const Hero = ({
+  title,
+  heading,
+}: // img,
+{
+  title: string;
+  heading: string;
+  // img: string;
+}) => {
   if (title === "home") {
     return (
       <HomeWrapper>
@@ -42,7 +51,6 @@ const HomeWrapper = styled.div`
     height: 300px;
     width: 100%;
     background: url("/images/hero-blur-1.png");
-
     background-size: cover;
     color: #fff;
     position: relative;

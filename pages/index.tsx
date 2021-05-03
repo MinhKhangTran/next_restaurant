@@ -15,6 +15,12 @@ interface ICard {
   text: string;
   icon: any;
 }
+export interface IHero {
+  title: string;
+  hero_img: {
+    url: string;
+  };
+}
 
 export default function HomePage({
   data,
@@ -22,22 +28,29 @@ export default function HomePage({
   index_title_1,
   index_title_2,
   cards,
+  heroes,
 }: {
   data: IData[];
   about: ISingleType;
   index_title_1: ISingleType;
   index_title_2: ISingleType;
   cards: ICard[];
+  heroes: IHero[];
 }) {
   // console.log(data);
   // console.log(about);
   // console.log(index_title_1);
   // console.log(index_title_2);
   // console.log(cards);
+  // console.log(heroes[0]);
 
   return (
     <>
-      <Hero title="home" heading="Wilkommen bei Midang" />
+      <Hero
+        title="home"
+        heading={heroes[0].title}
+        // img={heroes[0].hero_img.url}
+      />
       <Box mx="auto" w={{ base: "90%", md: "75%" }}>
         <Text fontSize="2xl" lineHeight="10">
           {about.description}
@@ -103,8 +116,12 @@ export async function getStaticProps() {
   );
   //cards
   const { data: cards } = await axios.get(`${process.env.API_ENDPOINT}/cards`);
+  // heroes;
+  const { data: heroes } = await axios.get(
+    `${process.env.API_ENDPOINT}/heroes?id=1`
+  );
   return {
-    props: { data, about, index_title_1, index_title_2, cards },
+    props: { data, about, index_title_1, index_title_2, cards, heroes },
     revalidate: 1,
   };
 }

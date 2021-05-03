@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import MenuItem from "@/components/MenuItem";
 import { Box, Grid } from "@chakra-ui/react";
 import axios from "axios";
+import { IHero } from "pages";
 
 export interface IZutat {
   id: number;
@@ -17,12 +18,18 @@ export interface IData {
   zutat: IZutat[];
 }
 
-export default function MenuPage({ data }: { data: IData[] }) {
+export default function MenuPage({
+  data,
+  heroes,
+}: {
+  data: IData[];
+  heroes: IHero[];
+}) {
   // console.log(data);
 
   return (
     <>
-      <Hero title="menu" heading="Unser Menü" />
+      <Hero title="menu" heading={heroes[0].title} />
       <Grid
         templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
         gap={6}
@@ -50,8 +57,12 @@ export default function MenuPage({ data }: { data: IData[] }) {
 export async function getStaticProps() {
   const { data } = await axios.get(`${process.env.API_ENDPOINT}/items`);
   // console.log(data);
+  // heroes;
+  const { data: heroes } = await axios.get(
+    `${process.env.API_ENDPOINT}/heroes?id=2`
+  );
   return {
-    props: { data },
+    props: { data, heroes },
     revalidate: 1,
   };
 }
